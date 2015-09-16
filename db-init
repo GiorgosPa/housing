@@ -1,6 +1,0 @@
-echo "Enter mysql root password:"
-read -s password
-mysql -u root -p$password -e "CREATE DATABASE IF NOT EXISTS housing;"
-mysql -u root -p$password -e "CREATE USER 'housing'@'localhost' IDENTIFIED BY '123';"
-mysql -u root -p$password -e "GRANT ALL PRIVILEGES ON housing . * TO 'housing'@'localhost';"
-mysql -u root -p$password -e "FLUSH PRIVILEGES;"

@@ -3,3 +3,7 @@
 
 #Generated files #
 virtual-environment
+static/static-only
+
+#OS generated files
+.DS_Store
