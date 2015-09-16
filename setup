@@ -1,16 +1,31 @@
-if hash mysql 2>/dev/null; then
-	sudo apt-get install mysql-server
+platform='unknown'
+unamestr=`uname`
+
+if [[ "$unamestr" == 'Linux' ]]; then
+   platform='linux'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+   platform='mac'
 fi
 
-if hash mysql_config  2>/dev/null; then
-	sudo apt-get install libmysqlclient-dev
+if [[ "$platform" == 'linux' ]]; then
+    if hash mysql 2>/dev/null; then\
+       sudo apt-get install mysql-server
+    fi
+    if hash mysql_config 2>/dev/null; then
+        sudo apt-get install libmysqlclient-dev
+    fi
+    sudo apt-get install mysql-server
+
+elif [[ "$platform" == 'mac' ]]; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install mysql
 fi
 
 if [ -d "virtual-environment" ]; then
   sudo rm -rf virtual-environment
 fi
 
-sudo apt-get install mysql-server
+
 sudo easy_install pip
 sudo pip install virtualenv
 virtualenv virtual-environment
