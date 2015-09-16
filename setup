@@ -17,17 +17,54 @@ if [[ "$platform" == 'linux' ]]; then
     sudo apt-get install mysql-server
 
 elif [[ "$platform" == 'mac' ]]; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install mysql
+
+    # Check if brew is installed
+    which -s brew
+    if [[ $? != 0 ]] ; then
+        # Install Homebrew
+        # https://github.com/mxcl/homebrew/wiki/installation
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+    else
+        brew update
+    fi
+
+    # Check if Git is installed
+    which -s git || brew install git
+
+    # Check if mysql is installed
+    which -s mysql || brew install mysql
 fi
 
+# check for previous installations
 if [ -d "virtual-environment" ]; then
   sudo rm -rf virtual-environment
+  echo "Enter mysql root password:"
+  read -s password
+  if [[ "$password" == "" ]]; then
+    mysql -u root -e "DROP DATABASE IF EXISTS housing;"
+    mysql -u root -e "DROP USER 'housing'@'localhost'";
+    mysql -u root -e "CREATE DATABASE housing;"
+    mysql -u root -e "CREATE USER 'housing'@'localhost' IDENTIFIED BY '123';"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON housing . * TO 'housing'@'localhost';"
+    mysql -u root -e "FLUSH PRIVILEGES;"
+  else
+    mysql -u root -p$password -e "DROP DATABASE IF EXISTS housing;"
+    mysql -u root -p$password -e "DROP USER 'housing'@'localhost'";
+    mysql -u root -p$password -e "CREATE DATABASE housing;"
+    mysql -u root -p$password -e "CREATE USER 'housing'@'localhost' IDENTIFIED BY '123';"
+    mysql -u root -p$password -e "GRANT ALL PRIVILEGES ON housing . * TO 'housing'@'localhost';"
+    mysql -u root -p$password -e "FLUSH PRIVILEGES;"
+  fi
 fi
 
+# Check if pip is installed
+which -s pip || sudo easy_install pip
 
-sudo easy_install pip
-sudo pip install virtualenv
+# Check if virtualenv is installed
+which -s virtualenv || sudo pip install virtualenv
+
 virtualenv virtual-environment
 source activate
 pip install -r requirements.txt
+
+python src/manage.py syncdb
