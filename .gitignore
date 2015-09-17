@@ -4,6 +4,7 @@
 #Generated files #
 virtual-environment
 static/static-only
+properties/migrations
 
 #OS generated files
 .DS_Store
