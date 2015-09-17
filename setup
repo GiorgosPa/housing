@@ -67,4 +67,8 @@ virtualenv virtual-environment
 source activate
 pip install -r requirements.txt
 
+python src/manage.py makemigrations properties
 python src/manage.py syncdb
+python src/manage.py loaddata brokers
+python src/manage.py loaddata properties
+python src/manage.py loaddata graphs
