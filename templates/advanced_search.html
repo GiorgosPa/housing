@@ -1,0 +1,14 @@
+{% extends "search.html" %}
+
+{% block active %}
+    <li><a data-toggle="tab" href="#simple">Simple search</a></li>
+    <li class="active"><a data-toggle="tab" href="#complex">Advanced search</a></li>
+  {% endblock %}
+
+{% block simple %}
+<div id="simple" class="tab-pane fade">
+{% endblock %}
+
+{% block complex %}
+<div id="complex" class="tab-pane in active fade col-md-6 col-md-offset-6">
+{% endblock %}

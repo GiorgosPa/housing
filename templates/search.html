@@ -1,5 +1,101 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Search!</h1> 
+
+<div id="tabs" class="container">
+  <ul class="nav nav-tabs nav-justified">
+  {% block active %}
+    <li class="active"><a data-toggle="tab" href="#simple">Simple search</a></li>
+    <li><a data-toggle="tab" href="#complex">Advanced search</a></li>
+  {% endblock %}
+  </ul>
+
+  <div class="tab-content">
+    {% block simple %}
+    <div id="simple" class="tab-pane fade in active">
+    {% endblock %}
+        <form id="simpleForm" action="/search" method="get" role="form">
+          <div class="row">
+            <div class="col-lg-10">
+              <div class="input-group">
+                <input value="{{ query }}" name="query" type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-success" type="submit">Search</button>
+                </span>
+              </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+          </div><!-- /.row -->
+        </form>
+      </div>
+    {% block complex %}
+    <div id="complex" class="tab-pane fade col-md-6 col-md-offset-6">
+    {% endblock %}
+        <form class="form-horizontal" id="complexForm" action="/search/advanced" method="get" role="form">
+          <div class="form-group">
+            <label class="control-label col-sm-6 col-xs-12" for="town">Town:</label>
+            <input class="col-sm-6 col-xs-12" value="{{town}}" name="town" type="text" class="form-control" id="town">
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-6 col-xs-12" for="street">Street:</label>
+            <input class="col-sm-6 col-xs-12" value="{{street}}" name="street" type="text" class="form-control" id="street">
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-6 col-xs-12" for="zipcode">Zipcode:</label>
+            <input class="col-sm-6 col-xs-12" value="{{zipcode}}" name="zipcode" type="text" class="form-control" id="zipcode">
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-6 col-xs-12" for="floors">Number of floors:</label>
+            <input class="col-sm-6 col-xs-12" value="{{floors}}" name="floors" type="text" class="form-control" id="floors">
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-6 col-xs-12" for="floor">Floor:</label>
+            <input class="col-sm-6 col-xs-12" value="{{floor}}" name="floor" type="text" class="form-control" id="floor">
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-6 col-xs-12" for="year">Year:</label>
+            <input class="col-sm-6 col-xs-12" value="{{year}}" name="year" type="text" class="form-control" id="year">
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-6 col-xs-12" for="rooms">Rooms:</label>
+            <input class="col-sm-6 col-xs-12" value="{{rooms}}" name="rooms" type="text" class="form-control" id="rooms">
+          </div>
+          <div class="col-sm-offset-9">
+            <button  class="btn btn-lg btn-success">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>      
+  </div>
+
+  {% if results %}
+    {% for result in results %}
+      <div > {{ result.address1 }}, {{ result.address2 }} </div>
+    {% endfor %}
+
+    <div class="pagination">
+      <span class="step-links">
+        {% if results.has_previous %}
+          {% if method and method == 'simple' %}
+            <a href="?query={{ query }}&page={{ results.previous_page_number }}">previous</a>
+          {% endif %}
+          {% if method and method == 'advanced' %}
+            <a href="?town={{ town }}&street={{ street }}&zipcode={{zipcode}}&floors={{floors}}&floor={{floor}}&year={{year}}&room={{room}}&page={{ results.previous_page_number }}">previous</a>
+          {% endif %}
+        {% endif %}
+
+        <span class="current">
+          Page {{ results.number }} of {{ results.paginator.num_pages }}.
+        </span>
+
+        {% if results.has_next %}
+          {% if method and method == 'simple' %}
+            <a href="?query={{ query }}&page={{ results.next_page_number }}">next</a>
+          {% endif %}
+          {% if method and method == 'advanced' %}
+            <a href="?town={{ town }}&street={{ street }}&zipcode={{zipcode}}&floors={{floors}}&floor={{floor}}&year={{year}}&room={{room}}&page={{ results.next_page_number }}">next</a>
+          {% endif %}
+        {% endif %}
+      </span>
+    </div>
+  {% endif %}
 {% endblock %}

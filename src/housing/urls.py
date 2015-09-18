@@ -23,6 +23,7 @@ import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^search$', properties.views.search, name='search'),
+    url(r'^search/advanced$', properties.views.advanced_search, name='advanced_search'),
     url(r'^logout$', views.logout, name='logout'),
     url(r'^login$', views.login, name='login'),
     url(r'^register$', views.register, name='register'),

@@ -51,6 +51,11 @@ body {
   padding: 20px;
 }
 
+#advanceSearch input{
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
 .carousel-inner{
     height: 300px;
 }
