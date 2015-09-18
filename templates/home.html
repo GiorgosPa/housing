@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="col-md-1"></div>
-  <div id="carousel-example-generic" class="carousel slide col-md-10" data-ride="carousel">
+  <div id="carousel-example-generic" class="carousel slide row" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
@@ -34,9 +33,58 @@
       </a>
     </div>
   </div>
-  <div class="col-md-1"></div>
 
-  <div id="tabs" class="container">
+  <div id="forms" class="row">
+    <div id="login" class="col-md-2 col-md-offset-3 panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Login</h2>
+        </div>
+        <div class="panel-body">
+        <form id="loginform" action="/login" method="post" role="form">
+          {% csrf_token %}
+          <div class="form-group alert">
+            <label for="username">Username:</label>
+            <input name="username" type="text" class="form-control" id="username">
+          </div>
+          <div class="form-group alert">
+            <label for="pwd">Password:</label>
+            <input name="password" type="password" class="form-control" id="pwd">
+          </div>
+          <button type="submit" class="btn btn-lg btn-success submit">Login</button>
+        </form>
+      </div>
+    </div>
+    <div id="register" class="col-md-2 col-md-offset-2 panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Register</h2>
+      </div>
+      <div class="panel-body">
+        <form id="registerform" action="/register" method="post" role="form">
+      {% csrf_token %}       
+        <div class="form-group alert">
+          <label for="username">Username:</label>
+          <input name="username" type="text" class="form-control" id="username">
+        </div>
+        <div class="form-group alert">
+          <label for="email">Email address:</label>
+          <input name="email" type="email" class="form-control" id="email">
+        </div>
+        <div class="form-group alert">
+          <label for="pwd">Password:</label>
+          <input name="password" type="password" class="form-control" id="register_pwd">
+        </div>
+        <div class="form-group alert">
+          <label for="pwd">Confirm password:</label>
+          <input name="password2" type="password" class="form-control" id="register_pwd2">
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary submit">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+    
+  
+  <!-- <div id="tabs" class="container">
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
       <li><a data-toggle="tab" href="#register">Register</a></li>
@@ -62,23 +110,23 @@
           {% csrf_token %}
             <div class="form-group">
               <label for="username">Username:</label>
-              <input type="text" class="form-control" id="username">
+              <input name="username" type="text" class="form-control" id="username">
             </div>
             <div class="form-group">
               <label for="email">Email address:</label>
-              <input type="email" class="form-control" id="email">
+              <input name="email" type="email" class="form-control" id="email">
             </div>
             <div class="form-group">
               <label for="pwd">Password:</label>
-              <input type="password" class="form-control" id="pwd">
+              <input name="password" type="password" class="form-control" id="register_pwd">
             </div>
             <div class="form-group">
               <label for="pwd">Repeat password:</label>
-              <input type="password" class="form-control" id="pwd">
+              <input name="password2" type="password" class="form-control" id="register_pwd2">
             </div>
             <button type="submit" class="btn btn-lg btn-primary">Register</button>
           </form>
       </div>      
-    </div>
+    </div> -->
   </div>
 {% endblock %}

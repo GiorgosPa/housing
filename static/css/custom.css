@@ -1,0 +1,64 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+  overflow-x: hidden; 
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  padding-top: 10px;
+  color: #ffffff;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #101010;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+.error{
+  color: #a94442;
+}
+
+.valid{
+  color:#3c763d;
+}
+
+.submit{
+  margin-left: 15px;
+}
+
+.btn{
+  min-width: 120px;
+}
+
+#tabs, .tab-content{
+  padding: 20px;
+}
+
+#login, #register{
+  padding-right: 0; 
+  padding-left: 0;
+}
+#forms{
+  padding: 20px;
+}
+
+.carousel-inner{
+    height: 300px;
+}
+
+.carousel{
+    padding: 0 !important;
+}
+.item, img{
+    height: 100% !important;
+    width:  100% !important;
+}
