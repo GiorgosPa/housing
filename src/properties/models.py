@@ -8,8 +8,8 @@ class Broker(models.Model):
     presentationurl = models.CharField(max_length=200)
 
 
-class Property(models.Model):    
-    brutto = models.CharField(max_length=5)    
+class Property(models.Model):
+    brutto = models.CharField(max_length=10)
     ownerexpenses = models.CharField(max_length=10)
     openhousedate = models.IntegerField(null=True)
     photo = models.CharField(max_length=200)
@@ -26,29 +26,28 @@ class Property(models.Model):
     lot = models.IntegerField()
     latitude = models.DecimalField(max_digits=16, decimal_places=10)
     propertycharges = models.CharField(max_length=10)
-    type = models.CharField(max_length=50)    
+    type = models.CharField(max_length=50)
     clicks = models.IntegerField(default=0)
     description = models.CharField(max_length=500)
     address1 = models.CharField(max_length=200)
     address2 = models.CharField(max_length=200)
-    salesperiodtotal = models.IntegerField()    
+    salesperiodtotal = models.IntegerField()
     bigphoto = models.CharField(max_length=200)
     floors = models.IntegerField()
     basement = models.IntegerField()
     area = models.IntegerField()
     price = models.CharField(max_length=20)
-    netto = models.CharField(max_length=5)
-    payment = models.CharField(max_length=5)
+    netto = models.CharField(max_length=10)
+    payment = models.CharField(max_length=10)
     technicalprice = models.CharField(max_length=20, null=True)
     pricedevelopment = models.CharField(max_length=20)
     sqftprice = models.CharField(max_length=10)
     openhouseduration = models.IntegerField(null=True)
     longitude = models.DecimalField(max_digits=16, decimal_places=10)
-    link = models.CharField(max_length=200)    
+    link = models.CharField(max_length=200)
     broker = models.ForeignKey(Broker)
 
 
 class Graph(models.Model):
     graph = models.CharField(max_length=200)
     property = models.ForeignKey(Property)
-    

@@ -1,13 +1,9 @@
 from django.template import RequestContext
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
 from django.shortcuts import render_to_response, redirect
 from django.template.context_processors import csrf
-from django.contrib.auth.models import User
 from django.db import IntegrityError
-from datetime import datetime
-from forms import *
 
 
 def home(request):
@@ -29,7 +25,7 @@ def login(request):
         if request.method == 'POST':
             username = request.POST['username']
             password = request.POST['password']
-            user = authenticate(username=username, password=password)         
+            user = authenticate(username=username, password=password)
             if user is not None:
                 # the password verified for the user
                 if user.is_active:
@@ -37,14 +33,14 @@ def login(request):
                     return redirect('search')
                 else:
                     return render_to_response('user_inactive.html',
-                                  RequestContext(request))
+                                              RequestContext(request))
             return render_to_response('login_fail.html',
-                                       c,
-                                       RequestContext(request))
+                                      c,
+                                      RequestContext(request))
     return redirect('search')
 
 
-def logout(request): 
+def logout(request):
     log_out(request)
     return redirect('home')
 

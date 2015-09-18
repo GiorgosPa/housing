@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <script>
+    function initialize(lat, lon) {
+      var mapCanvas = document.getElementById('map');
+      var position = new google.maps.LatLng(lat, lon)
+      var mapOptions = {
+        center: position,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      var map = new google.maps.Map(mapCanvas, mapOptions);
+      var marker = new google.maps.Marker({
+        position: position,
+        map: map
+    });
+    }
+
+    $(function(){
+      initialize({{ property.latitude }} , {{ property.longitude }})
+    });
+  </script>
+  <div class="row">
+    <h3>
+      {{ property.address1 }} {{ property.address2 }}, {{ property.area}} m²,
+      {{property.rooms}} rooms, {{ property.price }} DKK
+    </h3>
+  </div>
+  <div class="well">
+    <div class="row">
+      <div class="col col-md-6">
+        <span class="thumbnail">
+          <img src="{{ property.bigphoto }}">
+        </span>
+      </div>
+      <div id="map-container" class="col col-md-6">
+        <div id="map"></div>
+      </div>
+    </div> <!-- row -->
+  </div><!-- well -->
+  <div id="details" class="row">
+    <div class="col col-md-3">
+      <div class="list-group">
+        <span class="list-group-item active">
+          Details
+        </span>
+        <span class="list-group-item">Price: {{ property.price }} DKK</span>
+        <span class="list-group-item">Area: {{ property.area }} m²</span>
+        <span class="list-group-item">Rooms: {{ property.rooms }}</span>
+        <span class="list-group-item">Floor: {{ property.floor }}</span>
+      </div> <!-- list -->
+    </div>
+    <div class="col col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Description</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            {{ property.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col col-md-3">
+      <div class="list-group">
+        <span class="list-group-item active">
+          Charges
+        </span>
+        <span class="list-group-item">Owner expenses: {{ property.ownerexpenses }} DKK</span>
+        <span class="list-group-item">Usage expenses: {{ property.usageexpenses }} DKK</span>
+        <span class="list-group-item">Charges: {{ property.propertycharges }} DKK</span>
+        <span class="list-group-item">Payment: {{ property.payment }} DKK</span>
+      </div> <!-- list -->
+    </div>
+  </div>
+  </div> <!-- row -->
+  {% for graph in graphs %}
+    <div class="col col-md-4">
+      <span class="thumbnail">
+        <img src="{{graph.graph}}">
+      </span>
+    </div>
+  {% endfor %}
+  <div class="row">
+    <a href="{{property.broker.presentationurl}}">
+      <img id="broker"src="{{property.broker.logo}}">
+    </a>
+    <a href="{{property.broker.link}}">See this listing in broker's website</a>
+  </div>
+{% endblock %}

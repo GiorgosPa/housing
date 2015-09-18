@@ -35,7 +35,7 @@
   </div>
 
   <div id="forms" class="row">
-    <div id="login" class="col-md-2 col-md-offset-3 panel panel-default">
+    <div id="login" class="col-md-3 col-md-offset-2 panel panel-default">
         <div class="panel-heading">
           <h2 class="panel-title">Login</h2>
         </div>
@@ -54,13 +54,13 @@
         </form>
       </div>
     </div>
-    <div id="register" class="col-md-2 col-md-offset-2 panel panel-default">
+    <div id="register" class="col-md-3 col-md-offset-2 panel panel-default">
       <div class="panel-heading">
         <h2 class="panel-title">Register</h2>
       </div>
       <div class="panel-body">
         <form id="registerform" action="/register" method="post" role="form">
-      {% csrf_token %}       
+      {% csrf_token %}
         <div class="form-group alert">
           <label for="username">Username:</label>
           <input name="username" type="text" class="form-control" id="username">

@@ -5,7 +5,7 @@
 <div id="tabs" class="container">
   <ul class="nav nav-tabs nav-justified">
   {% block active %}
-    <li class="active"><a data-toggle="tab" href="#simple">Simple search</a></li>
+    <li class="active"><a data-toggle="tab" href="#simple">Search</a></li>
     <li><a data-toggle="tab" href="#complex">Advanced search</a></li>
   {% endblock %}
   </ul>
@@ -15,10 +15,16 @@
     <div id="simple" class="tab-pane fade in active">
     {% endblock %}
         <form id="simpleForm" action="/search" method="get" role="form">
+          <div class="row" style="font-size:11px;">
+            <div class="col-lg-12">
+              <div class="alert alert-info" style="padding:5px" role="alert">
+              <span class="glyphicon glyphicon-info-sign"></span> You may type multiple words separated with space and get all the listings that much at least one word!</div>
+            </div>
+          </div>
           <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
               <div class="input-group">
-                <input value="{{ query }}" name="query" type="text" class="form-control" placeholder="Search for...">
+                <input value="{{ query }}" name="query" type="text" class="form-control" placeholder='Town, street or zipcode'>
                 <span class="input-group-btn">
                   <button class="btn btn-success" type="submit">Search</button>
                 </span>
@@ -28,74 +34,91 @@
         </form>
       </div>
     {% block complex %}
-    <div id="complex" class="tab-pane fade col-md-6 col-md-offset-6">
+    <div id="complex" class="tab-pane fade">
     {% endblock %}
         <form class="form-horizontal" id="complexForm" action="/search/advanced" method="get" role="form">
-          <div class="form-group">
-            <label class="control-label col-sm-6 col-xs-12" for="town">Town:</label>
-            <input class="col-sm-6 col-xs-12" value="{{town}}" name="town" type="text" class="form-control" id="town">
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label" for="town">Town:</label>
+            <input value="{{town}}" name="town" type="text" class="form-control" id="town">
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-6 col-xs-12" for="street">Street:</label>
-            <input class="col-sm-6 col-xs-12" value="{{street}}" name="street" type="text" class="form-control" id="street">
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label" for="rooms">Rooms:</label>
+            <input value="{{rooms}}" name="rooms" type="text" class="form-control" id="rooms">
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-6 col-xs-12" for="zipcode">Zipcode:</label>
-            <input class="col-sm-6 col-xs-12" value="{{zipcode}}" name="zipcode" type="text" class="form-control" id="zipcode">
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label" for="street">Street:</label>
+            <input value="{{street}}" name="street" type="text" class="form-control" id="street">
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-6 col-xs-12" for="floors">Number of floors:</label>
-            <input class="col-sm-6 col-xs-12" value="{{floors}}" name="floors" type="text" class="form-control" id="floors">
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label" for="floor">Floor:</label>
+            <input value="{{floor}}" name="floor" type="text" class="form-control" id="floor">
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-6 col-xs-12" for="floor">Floor:</label>
-            <input class="col-sm-6 col-xs-12" value="{{floor}}" name="floor" type="text" class="form-control" id="floor">
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label" for="zipcode">Zipcode:</label>
+            <input value="{{zipcode}}" name="zipcode" type="text" class="form-control" id="zipcode">
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-6 col-xs-12" for="year">Year:</label>
-            <input class="col-sm-6 col-xs-12" value="{{year}}" name="year" type="text" class="form-control" id="year">
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label" for="year">Year:</label>
+            <input value="{{year}}" name="year" type="text" class="form-control" id="year">
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-6 col-xs-12" for="rooms">Rooms:</label>
-            <input class="col-sm-6 col-xs-12" value="{{rooms}}" name="rooms" type="text" class="form-control" id="rooms">
-          </div>
-          <div class="col-sm-offset-9">
-            <button  class="btn btn-lg btn-success">Search</button>
+          <div class="form-group col-md-6">
+              <button class="btn btn-lg btn-success">Search</button>
           </div>
         </form>
       </div>
-    </div>      
+    </div>
   </div>
-
   {% if results %}
+    <div class="row" style="padding:30px">Found <strong>{{ total }}</strong> results: </div>
     {% for result in results %}
-      <div > {{ result.address1 }}, {{ result.address2 }} </div>
+      <a href="/property/{{ result.pk }}">
+        <div class="col col-xs-12 col-md-3">
+          <div class="thumbnail">
+            <img src="{{result.photo}}">
+            <div class="caption">
+              <div>
+                {{ result.address1 }} {{ result.address2 }}
+              </div>
+              <div>
+                {{ result.area }} m², {{ result.rooms }} rooms
+              </div>
+              <div>
+                <h3>{{ result.price }} DKK</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
     {% endfor %}
-
-    <div class="pagination">
-      <span class="step-links">
-        {% if results.has_previous %}
-          {% if method and method == 'simple' %}
-            <a href="?query={{ query }}&page={{ results.previous_page_number }}">previous</a>
+    <div class="row">
+      <div class="col col-md-12"></div>
+    </div>
+    <div class="row text-center">
+      <div class="pagination">
+        <span class="step-links">
+          {% if results.has_previous %}
+            {% if method and method == 'simple' %}
+              <a href="?query={{ query }}&page={{ results.previous_page_number }}">previous</a>
+            {% endif %}
+            {% if method and method == 'advanced' %}
+              <a href="?town={{ town }}&street={{ street }}&zipcode={{zipcode}}&floor={{floor}}&year={{year}}&room={{room}}&page={{ results.previous_page_number }}">previous</a>
+            {% endif %}
           {% endif %}
-          {% if method and method == 'advanced' %}
-            <a href="?town={{ town }}&street={{ street }}&zipcode={{zipcode}}&floors={{floors}}&floor={{floor}}&year={{year}}&room={{room}}&page={{ results.previous_page_number }}">previous</a>
-          {% endif %}
-        {% endif %}
 
-        <span class="current">
-          Page {{ results.number }} of {{ results.paginator.num_pages }}.
+          <span class="current">
+            Page {{ results.number }} of {{ results.paginator.num_pages }}
+          </span>
+
+          {% if results.has_next %}
+            {% if method and method == 'simple' %}
+              <a href="?query={{ query }}&page={{ results.next_page_number }}">next</a>
+            {% endif %}
+            {% if method and method == 'advanced' %}
+              <a href="?town={{ town }}&street={{ street }}&zipcode={{zipcode}}&floor={{floor}}&year={{year}}&room={{room}}&page={{ results.next_page_number }}">next</a>
+            {% endif %}
+          {% endif %}
         </span>
-
-        {% if results.has_next %}
-          {% if method and method == 'simple' %}
-            <a href="?query={{ query }}&page={{ results.next_page_number }}">next</a>
-          {% endif %}
-          {% if method and method == 'advanced' %}
-            <a href="?town={{ town }}&street={{ street }}&zipcode={{zipcode}}&floors={{floors}}&floor={{floor}}&year={{year}}&room={{room}}&page={{ results.next_page_number }}">next</a>
-          {% endif %}
-        {% endif %}
-      </span>
+      </div>
     </div>
   {% endif %}
 {% endblock %}

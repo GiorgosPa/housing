@@ -22,6 +22,7 @@ import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^property/(\d+)$', properties.views.property, name='property'),
     url(r'^search$', properties.views.search, name='search'),
     url(r'^search/advanced$', properties.views.advanced_search, name='advanced_search'),
     url(r'^logout$', views.logout, name='logout'),

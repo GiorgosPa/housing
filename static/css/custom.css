@@ -3,8 +3,10 @@
 html {
   position: relative;
   min-height: 100%;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
+#map { min-height: 360px; }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
@@ -20,8 +22,22 @@ body {
   background-color: #101010;
 }
 
-.form-group {
-  margin-bottom: 5px;
+#broker{
+  width:50px !important;
+  height:50px !important;
+  margin-left: 100px;
+}
+
+#details{
+  margin-top: 20px;
+}
+
+#complex .form-group{
+  margin-right: 5px;
+}
+
+.form-group button{
+  margin-top: 15px;
 }
 .error{
   color: #a94442;
@@ -44,7 +60,7 @@ body {
 }
 
 #login, #register{
-  padding-right: 0; 
+  padding-right: 0;
   padding-left: 0;
 }
 #forms{
