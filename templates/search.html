@@ -14,25 +14,25 @@
     {% block simple %}
     <div id="simple" class="tab-pane fade in active">
     {% endblock %}
-        <form id="simpleForm" action="/search" method="get" role="form">
-          <div class="row" style="font-size:11px;">
-            <div class="col-lg-12">
-              <div class="alert alert-info" style="padding:5px" role="alert">
-              <span class="glyphicon glyphicon-info-sign"></span> You may type multiple words separated with space and get all the listings that much at least one word!</div>
-            </div>
+      <form id="simpleForm" action="/search" method="get" role="form">
+        <div class="row" style="font-size:11px;">
+          <div class="col-lg-12">
+            <div class="alert alert-info" style="padding:5px" role="alert">
+            <span class="glyphicon glyphicon-info-sign"></span> You may type multiple words separated with space and get all the listings that much at least one word!</div>
           </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="input-group">
-                <input value="{{ query }}" name="query" type="text" class="form-control" placeholder='Town, street or zipcode'>
-                <span class="input-group-btn">
-                  <button class="btn btn-success" type="submit">Search</button>
-                </span>
-              </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
-          </div><!-- /.row -->
-        </form>
-      </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input value="{{ query }}" name="query" type="text" class="form-control" placeholder='Town, street or zipcode'>
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="submit">Search</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+      </form>
+    </div>
     {% block complex %}
     <div id="complex" class="tab-pane fade">
     {% endblock %}
@@ -72,7 +72,7 @@
     <div class="row" style="padding:30px">Found <strong>{{ total }}</strong> results: </div>
     {% for result in results %}
       <a href="/property/{{ result.pk }}">
-        <div class="col col-xs-12 col-md-3">
+        <div class="col col-xs- col-md-3">
           <div class="thumbnail">
             <img src="{{result.photo}}">
             <div class="caption">
@@ -80,7 +80,8 @@
                 {{ result.address1 }} {{ result.address2 }}
               </div>
               <div>
-                {{ result.area }} m², {{ result.rooms }} rooms
+                {{ result.area }} m², {{ result.rooms }} rooms,
+                <span class="glyphicon glyphicon-eye-open"></span> {{ result.clicks }}
               </div>
               <div>
                 <h3>{{ result.price }} DKK</h3>

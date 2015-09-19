@@ -25,11 +25,15 @@ def login(request):
         if request.method == 'POST':
             username = request.POST['username']
             password = request.POST['password']
+            print request.POST, request.GET
+            nextpage = request.POST.get('next', '')
             user = authenticate(username=username, password=password)
             if user is not None:
                 # the password verified for the user
                 if user.is_active:
                     log_in(request, user)
+                    if nextpage:
+                        return redirect(nextpage)
                     return redirect('search')
                 else:
                     return render_to_response('user_inactive.html',

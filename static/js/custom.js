@@ -10,21 +10,21 @@ $(document).ready(function () {
                 email: true
             },
             password: {
-                minlength: 3,
+                minlength: 8,
                 required: true
             },
             password2: {
-                minlength: 3,
+                minlength: 8,
                 required: true,
                 equalTo: "#register_pwd"
             }
         },
         highlight: function (element) {
-            $(element).closest('.form-group').removeClass('valid').addClass('error');
+            $(element).closest('input').removeClass('valid').addClass('error');
         },
         success: function (element) {
             element.addClass('valid')
-                .closest('.form-group').removeClass('error').addClass('valid');
+                .closest('input').removeClass('error').addClass('valid');
         }
     });
     $('#loginform').validate({
@@ -34,16 +34,16 @@ $(document).ready(function () {
                 required: true
             },
             password: {
-                minlength: 3,
+                minlength: 8,
                 required: true
             }
         },
         highlight: function (element) {
-            $(element).closest('.form-group').removeClass('valid').addClass('error');
+            $(element).closest('input').removeClass('valid').addClass('error');
         },
         success: function (element) {
             element.addClass('valid')
-                .closest('.form-group').removeClass('error').addClass('valid');
+                .closest('input').removeClass('error').addClass('valid');
         }
     });
 });
