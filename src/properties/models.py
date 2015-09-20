@@ -7,6 +7,9 @@ class Broker(models.Model):
     casenumber = models.CharField(max_length=20)
     presentationurl = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.link
+
 
 class Property(models.Model):
     brutto = models.CharField(max_length=10)
@@ -47,7 +50,13 @@ class Property(models.Model):
     link = models.CharField(max_length=200)
     broker = models.ForeignKey(Broker)
 
+    def __str__(self):
+        return self.address1 + ' ' + self.address2
+
 
 class Graph(models.Model):
     graph = models.CharField(max_length=200)
     property = models.ForeignKey(Property)
+
+    def __unicode__(self):
+        return self.graph
